@@ -24,27 +24,27 @@ export function getUsers(req, res) {
  * @returns void
  */
 export function addUser(req, res) {
-  if (!req.body.user.username || !req.body.user.firstname || !req.body.user.email || !req.body.user.mobile || !req.body.user.password) {
+  if (!req.body.user.username || !req.body.user.firstname || !req.body.user.lastname || !req.body.user.email || !req.body.user.mobile || !req.body.user.password) {
     res.status(403).end();
   }
 
-  const newUser = new User(req.body.post);
+  const newUser = new User(req.body.user);
 
-  console.log(newUser);
   // Let's sanitize inputs
-  // newUser.username = sanitizeHtml(newUser.username);
-  // newUser.firstname = sanitizeHtml(newUser.firstname);
-  // newUser.lastname = sanitizeHtml(newUser.lastname);
-  // newUser.email = sanitizeHtml(newUser.email);
-  // newUser.mobile = sanitizeHtml(newUser.mobile);
-  // newUser.password = sanitizeHtml(newUser.password);
+  newUser.username = sanitizeHtml(newUser.username);
+  newUser.firstname = sanitizeHtml(newUser.firstname);
+  newUser.lastname = sanitizeHtml(newUser.lastname);
+  newUser.email = sanitizeHtml(newUser.email);
+  newUser.mobile = sanitizeHtml(newUser.mobile);
+  newUser.password = sanitizeHtml(newUser.password);
 
   newUser.cuid = cuid();
   newUser.save((err, saved) => {
     if (err) {
       res.status(500).send(err);
+    } else {
+      res.json({ user: saved });
     }
-    res.json({ user: saved });
   });
 }
 
