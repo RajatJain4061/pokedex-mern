@@ -27,7 +27,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.scss', '.jsx'],
     modules: [
       'client',
       'node_modules',
@@ -39,7 +39,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
+        loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&camelCase&sourceMap!postcss-loader',
       }, {
         test: /\.css$/,
         include: /node_modules/,
@@ -48,6 +48,9 @@ module.exports = {
         test: /\.jsx*$/,
         exclude: [/node_modules/, /.+\.config.js/],
         loader: 'babel',
+      }, {
+        test: /\.scss$/,
+        loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!sass-loader?sourceMap',
       }, {
         test: /\.(jpe?g|gif|png|svg)$/i,
         loader: 'url-loader?limit=10000',

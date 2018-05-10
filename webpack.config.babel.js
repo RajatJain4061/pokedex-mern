@@ -22,6 +22,10 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.scss$/,
+        loaders: 'css-loader/locals?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1!sass-loader',
+      },
+      {
         test: /\.css$/,
         exclude: /node_modules/,
         loader: 'style-loader!css-loader?localIdentName=' + cssModulesIdentName + '&modules&importLoaders=1&sourceMap!postcss-loader',
